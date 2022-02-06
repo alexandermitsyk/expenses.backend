@@ -10,6 +10,10 @@ namespace expenses.db
 
         public string? Description { get; set; }
 
+        public string? Comment { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
         public double Amount { get; set; }
 
         [ForeignKey("UserId")]

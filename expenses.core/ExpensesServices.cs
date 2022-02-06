@@ -17,6 +17,7 @@ namespace expenses.core
         {
             return _context.Expenses
              .Where(x => x.User.Id == _user.Id)
+             .OrderByDescending(x => x.Id)
              .Select(e => (ExpenseDto)e)
              .ToList();
         }
@@ -50,6 +51,8 @@ namespace expenses.core
 
             dbExpense.Description = expense.Description;
             dbExpense.Amount = expense.Amount;
+            dbExpense.Comment = expense.Comment;
+            dbExpense.CreatedDate = expense.CreatedDate;
 
             _context.SaveChanges();
 
