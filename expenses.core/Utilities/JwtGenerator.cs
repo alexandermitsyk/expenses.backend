@@ -8,7 +8,7 @@ namespace expenses.core.Utilities
 {
     public static class JwtGenerator
     {
-        public static string GenerateUserToken(string username)
+        public static string GenerateAuthToken(string username)
         {
             var claims = new Claim[]
             {

@@ -18,7 +18,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "JWT_SECRET": "This is my secret",
-        "JWT_ISSUER": "My Expenses"
+        "JWT_ISSUER": "My Expenses",
+        "CLIENT_ID": "1015325901765-905ljprtb7vgv0cdnkjmp4le399aghb0.apps.googleusercontent.com"
       }
     },
     "IIS Express": {
@@ -28,7 +29,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "JWT_SECRET": "This is my secret",
-        "JWT_ISSUER": "My Expenses"
+        "JWT_ISSUER": "My Expenses",
+        "CLIENT_ID": "1015325901765-905ljprtb7vgv0cdnkjmp4le399aghb0.apps.googleusercontent.com"
       }
     }
   }
