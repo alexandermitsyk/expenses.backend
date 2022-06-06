@@ -2,6 +2,7 @@ using expenses.core;
 using expenses.db;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -9,12 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<AppDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DB_CONNECTION_STRING")));
+
 builder.Services.AddControllers();
-builder.Services.AddDbContext<AppDbContext>();
+
 builder.Services.AddTransient<IExpensesServices, ExpensesServices>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
+builder.Services.AddTransient<IStatisticsServices, StatisticsServices>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -48,6 +52,13 @@ builder.Services.AddAuthentication(opts =>
 
 
 var app = builder.Build();
+
+var service = (IServiceScopeFactory)app.Services.GetService(typeof(IServiceScopeFactory));
+
+using (var db = service?.CreateScope().ServiceProvider.GetService<AppDbContext>())
+{
+    db?.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
